@@ -20,8 +20,7 @@ export default function ExperiencePage() {
     const fetchData = async () => {
       const { data, error } = await supabase
         .from('experience')
-        .select('*')
-        .order('order_rank', { ascending: true })
+        .select('*')   // ✅ no order by order_rank
 
       if (error) {
         console.error(error)
@@ -43,12 +42,13 @@ export default function ExperiencePage() {
         experience.map((job) => (
           <div key={job.id} className="mb-8">
             <h2 className="text-xl font-semibold">
-              {job.title} — {job.company}
+              {job.title} – {job.company}
             </h2>
             <p className="text-gray-600">{job.location}</p>
             <p className="text-sm text-gray-400">
-              {job.start_date} → {job.end_date || 'Present'}
+              {job.start_date} – {job.end_date || 'Present'}
             </p>
+
             {job.description && (
               <ul className="list-disc ml-6 mt-2 space-y-1">
                 {job.description.split('\n').map((line, i) => (
